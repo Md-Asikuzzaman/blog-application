@@ -25,7 +25,7 @@ const Layout: NextPage<Props> = ({ children }) => {
           </div>
 
           {/* MIDDLE SECTION */}
-          <div className='bg-white flex-1'>{children}</div>
+          <div className='flex-1'>{children}</div>
 
           {/* RIGHT SECTION */}
           <div className='max-w-[300px] w-full flex flex-col gap-8'>
