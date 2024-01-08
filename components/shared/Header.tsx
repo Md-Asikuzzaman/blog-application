@@ -5,7 +5,7 @@ import { Input } from '../ui/input';
 
 const Header = () => {
   return (
-    <header>
+    <header className='bg-white'>
       <div className='wrapper flex items-center justify-between gap-5'>
         <Link href={'/'}>
           <Image
@@ -17,7 +17,7 @@ const Header = () => {
         </Link>
 
         <div className='max-w-lg w-full'>
-          <Input type='search' placeholder='Search by title' />
+          <Input type='search' placeholder='Search by title' className="py-5" />
         </div>
       </div>
     </header>

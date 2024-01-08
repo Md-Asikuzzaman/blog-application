@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { LuClock10 } from 'react-icons/lu';
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
   date: string;
 }
 
-const RandomList: NextPage<Props> = ({ photo, title, date }) => {
+const PopularList: NextPage<Props> = ({ photo, title, date }) => {
   return (
     <div className='flex items-center gap-3'>
       <Image
@@ -33,4 +32,4 @@ const RandomList: NextPage<Props> = ({ photo, title, date }) => {
   );
 };
 
-export default RandomList;
+export default PopularList;
