@@ -10,7 +10,7 @@ const Category: NextPage<Props> = ({}) => {
       <ul className='flex flex-col gap-2'>
         <CategoryList title='Food' total={43} />
         <CategoryList title='Food' total={43} />
-        <CategoryList title='Food' total={43} />
+        <CategoryList title='Shoe' total={43} />
         <CategoryList title='Food' total={43} />
         <CategoryList title='Food' total={43} />
       </ul>
