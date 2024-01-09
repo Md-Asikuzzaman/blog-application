@@ -22,13 +22,19 @@ const Layout: NextPage<Props> = ({ children }) => {
           <div className='max-w-[300px] w-full flex flex-col gap-8'>
             <Category />
             <Random />
+
+            {/* for small view */}
+            <div className='flex flex-col gap-8 lg:hidden'>
+              <Popular />
+              <Tags />
+            </div>
           </div>
 
           {/* MIDDLE SECTION */}
           <div className='flex-1'>{children}</div>
 
           {/* RIGHT SECTION */}
-          <div className='max-w-[300px] w-full flex flex-col gap-8'>
+          <div className='max-w-[300px] w-full flex-col gap-8 hidden lg:flex'>
             <Popular />
             <Tags />
           </div>

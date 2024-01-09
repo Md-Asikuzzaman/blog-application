@@ -12,14 +12,15 @@ interface Props {
 
 const RandomList: NextPage<Props> = ({ photo, title, date }) => {
   return (
-    <div className='flex items-center gap-3'>
-      <Image
-        className='rounded-md'
-        src={photo}
-        height={70}
-        width={90}
-        alt='img'
-      />
+    <div className='flex flex-col gap-3'>
+      <div className='relative h-28 w-full'>
+        <Image
+          className='rounded-md transform transition-transform hover:scale-105'
+          src={photo}
+          fill
+          alt='img'
+        />
+      </div>
 
       <div>
         <Link className='hover:text-green-600 transition-colors' href='/'>

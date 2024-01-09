@@ -24,7 +24,7 @@ const Post = () => {
           </span>
         </Link>
 
-        <Link className='hover:text-green-600 transition-colors' href='/id'>
+        <Link className='hover:text-green-600 transition-colors' href='/post/123'>
           <h2 className='text-xl font-medium'>
             After a Caribbean Hurricane, the Battle Is Where, or Even Whether,
             to Rebuild
