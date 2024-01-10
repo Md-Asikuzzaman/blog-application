@@ -1,12 +1,13 @@
+'use client';
+
 import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import Category from '@/components/shared/category/Category';
 import Popular from '@/components/shared/popular/Popular';
 import Random from '@/components/shared/random/Random';
 import Tags from '@/components/shared/tags/Tags';
-import { Button } from '@/components/ui/button';
 import { NextPage } from 'next';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface Props {
   children: ReactNode;
