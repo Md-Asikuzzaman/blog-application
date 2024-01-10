@@ -4,7 +4,22 @@ import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET() {
   try {
-    const data = await prisma.post.findMany();
+    const data = await prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+        author: true,
+        category: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(
