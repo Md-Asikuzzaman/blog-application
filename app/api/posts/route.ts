@@ -2,7 +2,7 @@ import prisma from '@/app/database';
 import { createPostSchema } from '@/schema/post';
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const data = await prisma.post.findMany();
     return NextResponse.json(data, { status: 200 });
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as PostType;
 
