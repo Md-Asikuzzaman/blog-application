@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Post: NextPage<Props> = ({
-  post: { title, image, category, author },
+  post: { title, image, category, author, id },
 }) => {
   return (
     <div className='bg-white p-4 rounded-md flex gap-3'>
@@ -28,14 +28,20 @@ const Post: NextPage<Props> = ({
 
         <Link
           className='hover:text-green-600 transition-colors'
-          href='/post/123'
+          href={`/post/${id}`}
         >
           <h2 className='text-xl font-medium'>{title}</h2>
         </Link>
 
-        <span className='inline-flex items-center gap-1 text-gray-500 mt-3 text-sm'>
-          <LuClock10 size={18} /> March 17, 2023
-        </span>
+        <div className='flex items-center gap-3'>
+          <span className='inline-flex items-center gap-1 text-gray-500 mt-3 text-sm'>
+            <LuClock10 size={18} /> March 17, 2023
+          </span>
+
+          <span className='inline-flex items-center gap-1 text-gray-500 mt-3 text-sm'>
+            <LuClock10 size={18} /> March 17, 2023
+          </span>
+        </div>
       </div>
     </div>
   );
