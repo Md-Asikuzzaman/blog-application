@@ -17,7 +17,14 @@ const Post: NextPage<Props> = ({
   return (
     <div className='bg-white p-4 rounded-md flex gap-3'>
       <div className='relative h-48 w-48 rounded-lg overflow-hidden shrink-0'>
-        <Image src={image} fill style={{ objectFit: 'cover' }} alt='img' />
+        <Image
+          src={image}
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes='(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 100vw'
+          alt='img'
+          priority
+        />
       </div>
 
       <div>

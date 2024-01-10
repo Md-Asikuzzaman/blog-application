@@ -37,8 +37,9 @@ const Posts = () => {
 
   if (filteredPosts?.length === 0) {
     return (
-      <div className='rounded-md p-4 w-full bg-white'>
-        <h2>No Post Found!!!</h2>
+      <div className='rounded-md p-5 w-full bg-white'>
+        <h3 className='text-xl text-center'>No Post Found!!!</h3>
+        <h3 className='text-xl text-center text-green-600 mt-3'>"{search}"</h3>
       </div>
     );
   }
@@ -46,7 +47,7 @@ const Posts = () => {
   return (
     <>
       {filteredPosts?.map((post) => (
-        <Post post={post} />
+        <Post key={post.id} post={post} />
       ))}
     </>
   );
