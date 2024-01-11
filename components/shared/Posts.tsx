@@ -30,6 +30,8 @@ const Posts = () => {
 
   // PAGINATION LOGIC
   const postPerPage = 3;
+  const totalPostPage =
+    filteredPosts && Math.ceil(filteredPosts?.length / postPerPage);
 
   const lastIndexPost = postPerPage * currentPage;
   const firstIndexPost = lastIndexPost - postPerPage;
@@ -69,8 +71,9 @@ const Posts = () => {
         >
           Previous
         </button>
+        {totalPostPage}/{currentPage}
         <button
-          disabled={posts && lastIndexPost >= posts?.length}
+          disabled={filteredPosts && lastIndexPost >= filteredPosts?.length}
           onClick={() => incCurrentPageCount()}
           className='bg-green-500 py-3 px-8 m-2 rounded-lg'
         >
