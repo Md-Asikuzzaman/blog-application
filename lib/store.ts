@@ -14,3 +14,25 @@ export const useSearchStore = create<SearchType>((set) => ({
     }));
   },
 }));
+
+interface PageCountType {
+  currentPage: number;
+  resetCurrentPage: () => void;
+  incCurrentPageCount: () => void;
+  decCurrentPageCount: () => void;
+}
+
+export const usePageCountStore = create<PageCountType>((set) => ({
+  currentPage: 1,
+  resetCurrentPage: () => {
+    set(() => ({ currentPage: 1 }));
+  },
+
+  incCurrentPageCount: () => {
+    set((state) => ({ currentPage: state.currentPage + 1 }));
+  },
+
+  decCurrentPageCount: () => {
+    set((state) => ({ currentPage: state.currentPage - 1 }));
+  },
+}));

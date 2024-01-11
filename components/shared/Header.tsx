@@ -4,12 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { Input } from '../ui/input';
-import { useSearchStore } from '@/lib/store';
+import { usePageCountStore, useSearchStore } from '@/lib/store';
 
 const Header = () => {
-  const search = useSearchStore((state) => state.search);
-  const setSearch = useSearchStore((state) => state.setSearch);
-  
+  const { search, setSearch } = useSearchStore((state) => state);
+  const { resetCurrentPage } = usePageCountStore((state) => state);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    resetCurrentPage();
+  };
+
   return (
     <header className='bg-white'>
       <div className='wrapper flex items-center justify-between gap-5'>
@@ -28,7 +33,7 @@ const Header = () => {
             placeholder='Search by title'
             className='py-5'
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </div>
