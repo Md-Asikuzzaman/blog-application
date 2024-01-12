@@ -38,6 +38,10 @@ const Posts = () => {
 
   const sortedPosts = filteredPosts?.slice(firstIndexPost, lastIndexPost);
 
+  const handlePageDec = () => {
+    decCurrentPageCount();
+  };
+
   if (isLoading) {
     return (
       <div className='flex flex-col gap-8'>
@@ -65,8 +69,8 @@ const Posts = () => {
 
       <div>
         <button
-          disabled={currentPage == 1}
-          onClick={() => decCurrentPageCount()}
+          disabled={currentPage === 1}
+          onClick={handlePageDec}
           className='bg-green-500 py-3 px-8 m-2 rounded-lg'
         >
           Previous
