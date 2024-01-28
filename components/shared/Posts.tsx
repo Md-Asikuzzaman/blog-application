@@ -71,7 +71,7 @@ const Posts = () => {
         <button
           disabled={currentPage === 1}
           onClick={handlePageDec}
-          className='bg-green-500 py-3 px-8 m-2 rounded-lg'
+          className='bg-green-500 text-white py-2 px-5 m-2 rounded-full'
         >
           Previous
         </button>
@@ -79,7 +79,7 @@ const Posts = () => {
         <button
           disabled={filteredPosts && lastIndexPost >= filteredPosts?.length}
           onClick={() => incCurrentPageCount()}
-          className='bg-green-500 py-3 px-8 m-2 rounded-lg'
+          className='bg-green-500 text-white py-2 px-5 m-2 rounded-full'
         >
           Next
         </button>
