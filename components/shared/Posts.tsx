@@ -15,7 +15,7 @@ const Posts = () => {
   const { data: posts, isLoading } = useQuery<PostType[]>({
     queryKey: ['posts'],
     queryFn: async () => {
-      const { data } = await axios.get('http://localhost:3000/api/posts');
+      const { data } = await axios.get('https://blog-app-devasik.vercel.app/api/posts');
       return data;
     },
   });
