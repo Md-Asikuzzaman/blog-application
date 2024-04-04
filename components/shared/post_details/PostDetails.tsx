@@ -21,6 +21,8 @@ const PostDetails: NextPage<Props> = ({ id }) => {
       });
       return data as PostType;
     },
+
+    enabled: id ? true : false,
   });
 
   console.log(post);

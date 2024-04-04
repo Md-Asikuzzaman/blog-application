@@ -21,7 +21,18 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(posts, { status: 200 });
+    // shuffle algoritm
+    const shuffleArray = (array: PostType[]) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+
+    const shufflePosts = shuffleArray(posts);
+
+    return NextResponse.json(shufflePosts, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to fetch data." },
