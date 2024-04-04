@@ -2,12 +2,24 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import Post from "./post/Post";
 import PostSkeleton from "./skeleton/PostSkeleton";
 import { usePageCountStore, useSearchStore } from "@/lib/store";
 
-const Posts = () => {
+const Posts = ({ coookie }: { coookie: any }) => {
+  // test cookie
+  console.log("value from cookie: " + coookie?.name + ": " + coookie?.value);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem("username", "asik");
+      let username = localStorage.getItem("username");
+
+      console.log("value from local storage: " + username);
+    }
+  }, []);
+
   const search = useSearchStore((state) => state.search);
   const { currentPage, incCurrentPageCount, decCurrentPageCount } =
     usePageCountStore((state) => state);
@@ -17,6 +29,9 @@ const Posts = () => {
     queryFn: async () => {
       const { data } = await axios.get("/api/posts", {
         baseURL: process.env.NEXTAUTH_URL,
+        headers: {
+          Authorization: `Bearer ${coookie?.value}`,
+        },
       });
       return data;
     },

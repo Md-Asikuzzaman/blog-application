@@ -2,7 +2,17 @@ import prisma from "@/app/database";
 import { createPostSchema } from "@/schema/post";
 import { NextResponse, NextRequest } from "next/server";
 
+// test cookie
+import { cookies, headers } from "next/headers";
+
 export async function GET() {
+  // test cookie
+  cookies().set("username", "asik", { secure: true });
+
+  // test token by header
+  const token = headers().get("authorization")?.split(" ")[1] as any;
+  console.log("Token from header: " + token);
+
   try {
     let posts = await prisma.post.findMany({
       select: {

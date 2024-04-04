@@ -23,9 +23,10 @@ const Page: NextPage<Props> = async ({ params }) => {
   await queryClient.prefetchQuery({
     queryKey: ["post-details", id],
     queryFn: async () => {
-      const { data } = await axios.get(`/api/posts/${id}`, {
+      const { data, status, headers } = await axios.get(`/api/posts/${id}`, {
         baseURL: process.env.NEXTAUTH_URL,
       });
+
       return data as PostType;
     },
   });

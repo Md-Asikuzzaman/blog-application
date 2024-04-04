@@ -1,5 +1,8 @@
 import Posts from "@/components/shared/Posts";
 
+// test cookie
+import { cookies } from "next/headers";
+
 import {
   dehydrate,
   HydrationBoundary,
@@ -20,10 +23,13 @@ export default async function Home() {
     },
   });
 
+  // test cookie
+  const coookie = cookies().get("username");
+
   return (
     <div className="flex flex-col gap-8">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Posts />
+        <Posts coookie={coookie} />
       </HydrationBoundary>
     </div>
   );

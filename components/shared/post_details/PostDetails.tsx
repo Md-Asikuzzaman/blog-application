@@ -7,13 +7,12 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
 import { LuClock10 } from "react-icons/lu";
-
 interface Props {
   id: string;
 }
 
 const PostDetails: NextPage<Props> = ({ id }) => {
-  const { data: post, isPending } = useQuery<PostType>({
+  const { data: post, isLoading } = useQuery<PostType>({
     queryKey: ["post-details", id],
     queryFn: async () => {
       const { data } = await axios.get(`/api/posts/${id}`, {
@@ -21,11 +20,8 @@ const PostDetails: NextPage<Props> = ({ id }) => {
       });
       return data as PostType;
     },
-
     enabled: id ? true : false,
   });
-
-  console.log(post);
 
   return (
     <div className="bg-white p-5 rounded-md">
@@ -45,7 +41,9 @@ const PostDetails: NextPage<Props> = ({ id }) => {
 
       <div className="flex flex-col gap-8">
         <div className="relative w-full h-72 overflow-hidden rounded-md">
-          {!isPending && (
+          {isLoading ? (
+            "lloading..."
+          ) : (
             <Image
               src={post?.image as string}
               fill
