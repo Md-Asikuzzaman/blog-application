@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React from 'react';
-import Post from './post/Post';
-import PostSkeleton from './skeleton/PostSkeleton';
-import { usePageCountStore, useSearchStore } from '@/lib/store';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React from "react";
+import Post from "./post/Post";
+import PostSkeleton from "./skeleton/PostSkeleton";
+import { usePageCountStore, useSearchStore } from "@/lib/store";
 
 const Posts = () => {
   const search = useSearchStore((state) => state.search);
@@ -13,9 +13,11 @@ const Posts = () => {
     usePageCountStore((state) => state);
 
   const { data: posts, isLoading } = useQuery<PostType[]>({
-    queryKey: ['posts'],
+    queryKey: ["posts"],
     queryFn: async () => {
-      const { data } = await axios.get('https://blog-app-devasik.vercel.app/api/posts');
+      const { data } = await axios.get("/api/posts", {
+        baseURL: process.env.NEXTAUTH_URL,
+      });
       return data;
     },
   });
@@ -44,7 +46,7 @@ const Posts = () => {
 
   if (isLoading) {
     return (
-      <div className='flex flex-col gap-8'>
+      <div className="flex flex-col gap-8">
         {[1, 2, 3, 4].map((_, i) => (
           <PostSkeleton key={i} />
         ))}
@@ -54,9 +56,9 @@ const Posts = () => {
 
   if (filteredPosts?.length === 0) {
     return (
-      <div className='rounded-md p-5 w-full bg-white'>
-        <h3 className='text-xl text-center'>No Post Found!!!</h3>
-        <h3 className='text-xl text-center text-green-600 mt-3'>"{search}"</h3>
+      <div className="rounded-md p-5 w-full bg-white">
+        <h3 className="text-xl text-center">No Post Found!!!</h3>
+        <h3 className="text-xl text-center text-green-600 mt-3">"{search}"</h3>
       </div>
     );
   }
@@ -71,7 +73,7 @@ const Posts = () => {
         <button
           disabled={currentPage === 1}
           onClick={handlePageDec}
-          className='bg-green-500 text-white py-2 px-5 m-2 rounded-full'
+          className="bg-green-500 text-white py-2 px-5 m-2 rounded-full"
         >
           Previous
         </button>
@@ -79,7 +81,7 @@ const Posts = () => {
         <button
           disabled={filteredPosts && lastIndexPost >= filteredPosts?.length}
           onClick={() => incCurrentPageCount()}
-          className='bg-green-500 text-white py-2 px-5 m-2 rounded-full'
+          className="bg-green-500 text-white py-2 px-5 m-2 rounded-full"
         >
           Next
         </button>

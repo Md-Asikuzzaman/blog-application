@@ -1,10 +1,10 @@
-import prisma from '@/app/database';
-import { createPostSchema } from '@/schema/post';
-import { NextResponse, NextRequest } from 'next/server';
+import prisma from "@/app/database";
+import { createPostSchema } from "@/schema/post";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET() {
   try {
-    const data = await prisma.post.findMany({
+    let posts = await prisma.post.findMany({
       select: {
         id: true,
         title: true,
@@ -17,13 +17,25 @@ export async function GET() {
       },
 
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
-    return NextResponse.json(data, { status: 200 });
+
+    // shuffle algoritm
+    const shuffleArray = (array: PostType[]) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+
+    const shufflePosts = shuffleArray(posts);
+
+    return NextResponse.json(shufflePosts, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Failed to fetch data.' },
+      { message: "Failed to fetch data." },
       { status: 500 }
     );
   }
@@ -47,7 +59,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ newPost }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Failed to create data' },
+      { message: "Failed to create data" },
       { status: 500 }
     );
   }
