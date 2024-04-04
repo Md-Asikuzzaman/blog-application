@@ -57,8 +57,7 @@ const PostDetails: NextPage<Props> = ({ id }) => {
 
         <div className="flex flex-col gap-5">
           <p className="text-lg">{post?.description}</p>
-
-          {/* <p className="text-lg">
+          <p className="text-lg">
             It uses a dictionary of over 200 Latin words, combined with a
             handful of model sentence structures, to generate Lorem Ipsum which
             looks reasonable. The generated Lorem Ipsum is therefore always free
@@ -72,7 +71,7 @@ const PostDetails: NextPage<Props> = ({ id }) => {
             believable. If you are going to use a passage of Lorem Ipsum, you
             need to be sure there isn't anything embarrassing hidden in the
             middle of text.
-          </p> */}
+          </p>
         </div>
       </div>
     </div>
