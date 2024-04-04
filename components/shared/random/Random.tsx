@@ -2,6 +2,7 @@ import React from "react";
 import RandomList from "./RandomList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import RandomPostSkeleton from "@/components/ui/RandomPostSkeleton";
 
 const Random = () => {
   const { data: posts, isLoading } = useQuery<PostType[]>({
@@ -18,12 +19,19 @@ const Random = () => {
 
       <div className="flex flex-col gap-5">
         {isLoading ? (
-          <div>Loading...</div>
+          <div className="flex flex-col gap-5">
+            <RandomPostSkeleton />
+            <RandomPostSkeleton />
+            <RandomPostSkeleton />
+            <RandomPostSkeleton />
+            <RandomPostSkeleton />
+          </div>
         ) : (
           <>
-            {posts?.splice(0, 5)?.map((post) => (
+            {posts?.splice(0, 5)?.map((post: PostType) => (
               <RandomList
                 key={post.id}
+                id={post.id}
                 photo={post.image}
                 title={post.title}
                 date={post.createdAt}
