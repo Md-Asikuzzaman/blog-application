@@ -28,7 +28,7 @@ const Post: NextPage<Props> = ({ post }) => {
       </div>
 
       <div>
-        <Link href="/id">
+        <Link href={`/category/${id}`}>
           <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase mb-3 text-green-600">
             <MdCategory size={18} />
             {category}

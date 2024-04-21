@@ -1,22 +1,29 @@
-import React from 'react';
-import TagsList from './TagsList';
+import React from "react";
+import TagsList from "./TagsList";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+interface QueryResponse {
+  tags: TagType[];
+}
 
 const Tags = () => {
-  return (
-    <div className='bg-white p-5 rounded-md'>
-      <h4 className='text-lg font-semibold text-black mb-3'>Tags</h4>
+  const { data, isLoading } = useQuery<QueryResponse>({
+    queryKey: ["tags"],
+    queryFn: async () => {
+      const { data } = await axios.get("/api/posts/tags");
+      return data;
+    },
+  });
 
-      <div className='flex flex-wrap gap-2'>
-        <TagsList tagName='food' />
-        <TagsList tagName='music' />
-        <TagsList tagName='food' />
-        <TagsList tagName='food' />
-        <TagsList tagName='Business' />
-        <TagsList tagName='food' />
-        <TagsList tagName='food' />
-        <TagsList tagName='E-commerce' />
-        <TagsList tagName='food' />
-        <TagsList tagName='food' />
+  return (
+    <div className="bg-white p-5 rounded-md">
+      <h4 className="text-lg font-semibold text-black mb-3">Tags</h4>
+
+      <div className="flex flex-wrap gap-2">
+        {data?.tags?.map((tag) => (
+          <TagsList tag={tag} />
+        ))}
       </div>
     </div>
   );

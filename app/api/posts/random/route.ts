@@ -32,7 +32,7 @@ export async function GET() {
 
     const shufflePosts = shuffleArray(posts);
 
-    return NextResponse.json(posts, { status: 200 });
+    return NextResponse.json(shufflePosts, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to fetch data." },
