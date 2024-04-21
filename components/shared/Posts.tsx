@@ -41,7 +41,7 @@ const Posts = ({ coookie }: { coookie: any }) => {
   const filteredPosts = posts?.filter((post) => {
     return (
       post.title.toLowerCase().includes(search.toLowerCase().trim()) ||
-      post.author.toLowerCase().includes(search.toLowerCase().trim())
+      post.title.toLowerCase().includes(search.toLowerCase().trim())
     );
   });
 

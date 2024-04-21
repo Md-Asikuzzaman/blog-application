@@ -21,6 +21,7 @@ export async function GET() {
         description: true,
         image: true,
         author: true,
+        tags: true,
         category: true,
         createdAt: true,
         updatedAt: true,
@@ -42,7 +43,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as PostType;
+    const body = await request.json();
 
     const validation = createPostSchema.safeParse(body);
 
