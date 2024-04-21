@@ -8,10 +8,12 @@ const Random = () => {
   const { data: posts, isLoading } = useQuery<PostType[]>({
     queryKey: ["random"],
     queryFn: async () => {
-      const { data } = await axios.get("/api/posts/random");
+      const { data } = await axios.get("/api/posts");
       return data;
     },
   });
+
+  console.log(posts);
 
   return (
     <div className="bg-white p-5 rounded-md">
@@ -28,15 +30,9 @@ const Random = () => {
           </div>
         ) : (
           <>
-            {/* {posts?.splice(0, 5)?.map((post: PostType) => (
-              <RandomList
-                key={post.id}
-                id={post.id}
-                photo={post.image}
-                title={post.title}
-                date={post.createdAt}
-              />
-            ))} */}
+            {posts?.slice(0, 5)?.map((post: PostType) => (
+              <RandomList key={post.id} post={post} />
+            ))}
           </>
         )}
       </div>
