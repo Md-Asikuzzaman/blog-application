@@ -21,9 +21,9 @@ const Tags = () => {
       <h4 className="text-lg font-semibold text-black mb-3">Tags</h4>
 
       <div className="flex flex-wrap gap-2">
-        {data?.tags?.map((tag) => (
-          <TagsList tag={tag} />
-        ))}
+        {isLoading
+          ? "Loading..."
+          : data?.tags?.map((tag) => <TagsList tag={tag} />)}
       </div>
     </div>
   );
