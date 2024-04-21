@@ -4,7 +4,7 @@ interface PostType {
   description: string;
   image: string;
   author: AuthorType;
-  category: string;
+  category: CategoryType[];
   tags: Array<string>;
   createdAt: Date;
   updatedAt: Date;
@@ -22,6 +22,13 @@ interface TagType {
   id: string;
   title: string;
   postId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface CategoryType {
+  id: string;
+  title: string;
   createdAt: Date;
   updatedAt: Date;
 }

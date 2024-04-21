@@ -13,8 +13,6 @@ const Random = () => {
     },
   });
 
-  console.log(posts);
-
   return (
     <div className="bg-white p-5 rounded-md">
       <h4 className="text-lg font-semibold text-black mb-3">Random Posts</h4>
