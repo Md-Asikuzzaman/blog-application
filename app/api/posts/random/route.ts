@@ -9,8 +9,8 @@ export async function GET() {
         id: true,
         title: true,
         description: true,
-        image: true,
         author: true,
+        image: true,
         category: true,
         createdAt: true,
         updatedAt: true,
@@ -30,7 +30,7 @@ export async function GET() {
       return array;
     };
 
-    const shufflePosts = shuffleArray(posts);
+    const shufflePosts = shuffleArray(posts as PostType[] | []);
 
     return NextResponse.json(shufflePosts, { status: 200 });
   } catch (error) {
@@ -43,7 +43,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as PostType;
+    const body = await request.json();
 
     const validation = createPostSchema.safeParse(body);
 
