@@ -4,7 +4,7 @@
 
 FullStack Blog Application using React, NextJS, TailwindCSS & Prisma.
 
-[LIVE DEMO](https://modern-curd-app.vercel.app/)
+[LIVE DEMO](https://blog-app-devasik.vercel.app)
 
 Features:
 
@@ -20,7 +20,7 @@ Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/Md-Asikuzzaman/modern-CURD-app.git
+git clone https://github.com/Md-Asikuzzaman/blog-application.git
 ```
 
 ### Install packages
