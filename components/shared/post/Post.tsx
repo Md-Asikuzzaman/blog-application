@@ -15,9 +15,9 @@ interface Props {
   createdAt: Date;
   updatedAt: Date;
   authorId?: string | null;
-  categoriesId?: string[];
-  tagsId?: string[];
-  author: AuthorType;
+  // categoriesId?: string[];
+  // tagsId?: string[];
+  author: AuthorType | null;
 }
 
 const Post: NextPage<Props> = ({

@@ -5,8 +5,8 @@ import { ZodIssue } from "zod";
 import { createPostSchema } from "@/schema/post";
 
 interface ApiResponse {
-  posts?: PostType[];
-  newPost?: PostType;
+  posts?: ApiPostType[];
+  newPost?: ApiPostType;
   message?: string | ZodIssue[];
 }
 
@@ -23,9 +23,11 @@ export async function GET(): Promise<NextResponse<ApiResponse>> {
         title: true,
         description: true,
         image: true,
+        author: true,
+
+        categories: true,
         createdAt: true,
         updatedAt: true,
-        author: true,
       },
     });
 

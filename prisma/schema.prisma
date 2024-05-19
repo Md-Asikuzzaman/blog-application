@@ -27,18 +27,9 @@ model Post {
   image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
-  // for author
-  author      Author?  @relation(fields: [authorId], references: [id])
-  authorId    String?  @db.ObjectId
 
-  // for category
-  categories   Category[] @relation(fields: [categoriesId], references: [id])
-  categoriesId String[]   @db.ObjectId
-
-  // for tag
-  tags   Tag[]    @relation(fields: [tagsId], references: [id])
-  tagsId String[] @db.ObjectId
+  Author   Author? @relation(fields: [authorId], references: [id])
+  authorId String? @db.ObjectId
 }
 
 model Category {
@@ -46,17 +37,4 @@ model Category {
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  post   Post[]   @relation(fields: [postId], references: [id])
-  postId String[] @db.ObjectId
-}
-
-model Tag {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  post   Post[]   @relation(fields: [postId], references: [id])
-  postId String[] @db.ObjectId
 }

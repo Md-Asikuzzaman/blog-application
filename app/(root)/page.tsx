@@ -16,7 +16,7 @@ export default async function Home() {
       const { data } = await axios.get("/api/posts", {
         baseURL: process.env.NEXTAUTH_URL,
       });
-      return data as PostType[];
+      return data as ClientPostType[];
     },
   });
 

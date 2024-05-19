@@ -12,7 +12,7 @@ const Posts = () => {
   const { currentPage, incCurrentPageCount, decCurrentPageCount } =
     usePageCountStore((state) => state);
 
-  const { data: posts, isLoading } = useQuery<PostType[]>({
+  const { data: posts, isLoading } = useQuery<ClientPostType[]>({
     queryKey: ["postss"],
     queryFn: async () => {
       const { data } = await axios.get("/api/posts", {
