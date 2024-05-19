@@ -9,7 +9,6 @@ interface ApiResponse {
 export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
     const tags = await prisma.tag.findMany();
-
     return NextResponse.json({ tags }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

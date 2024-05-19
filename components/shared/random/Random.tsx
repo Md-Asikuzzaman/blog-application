@@ -28,9 +28,9 @@ const Random = () => {
           </div>
         ) : (
           <>
-            {posts?.slice(0, 5)?.map((post: PostType) => (
+            {/* {posts?.slice(0, 5)?.map((post: PostType) => (
               <RandomList key={post.id} post={post} />
-            ))}
+            ))} */}
           </>
         )}
       </div>
