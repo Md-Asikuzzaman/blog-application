@@ -1,14 +1,25 @@
-interface PostType {
+interface ApiPostType {
   id: string;
   title: string;
   description: string;
   image: string;
-  createdAt: Date;
-  updatedAt: Date;
   authorId?: string | null;
   categoriesId?: string[];
   tagsId?: string[];
-  author: AuthorType;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface ClientPostType {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  author: AuthorType | null;
+  // tags: TagType[];
+  categories: CategoryType[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface AuthorType {
@@ -30,6 +41,7 @@ interface TagType {
 interface CategoryType {
   id: string;
   title: string;
+  postId: string[] | null;
   createdAt: Date;
   updatedAt: Date;
 }
