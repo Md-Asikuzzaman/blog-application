@@ -28,10 +28,10 @@ const Post: NextPage<Props> = ({ post }) => {
       </div>
 
       <div>
-        <Link href={`/category/${category[0].id}`}>
+        <Link href={`/category/=`}>
           <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase mb-3 text-green-600">
             <MdCategory size={18} />
-            {category[0].title}
+            {/* {category[0].title} */}
           </span>
         </Link>
 
