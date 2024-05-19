@@ -5,9 +5,10 @@ interface PostType {
   image: string;
   createdAt: Date;
   updatedAt: Date;
-  authorId: string | null;
-  categoriesId: string[];
-  tagsId: string[];
+  authorId?: string | null;
+  categoriesId?: string[];
+  tagsId?: string[];
+  author: AuthorType;
 }
 
 interface AuthorType {
@@ -21,7 +22,7 @@ interface AuthorType {
 interface TagType {
   id: string;
   title: string;
-  postId: string | null;
+  postId: string[] | null;
   createdAt: Date;
   updatedAt: Date;
 }

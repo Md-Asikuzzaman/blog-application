@@ -1,16 +1,8 @@
 import prisma from "@/app/database";
-import { createPostSchema } from "@/schema/post";
 import { NextResponse, NextRequest } from "next/server";
 import { ZodIssue } from "zod";
 
-// check cookie
-// import { cookies, headers } from "next/headers";
-// test cookie
-// cookies().set("username", "asik", { secure: true });
-
-// test token by header
-// const token = headers().get("authorization")?.split(" ")[1] as any;
-// console.log("Token from header: " + token);
+import { createPostSchema } from "@/schema/post";
 
 interface ApiResponse {
   posts?: PostType[];
@@ -25,9 +17,17 @@ export async function GET(): Promise<NextResponse<ApiResponse>> {
       orderBy: {
         createdAt: "desc",
       },
-    });
 
-    console.log(posts);
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+        createdAt: true,
+        updatedAt: true,
+        author: true,
+      },
+    });
 
     return NextResponse.json({ posts }, { status: 200 });
   } catch (error) {
@@ -44,20 +44,22 @@ export async function POST(
 ): Promise<NextResponse<ApiResponse>> {
   try {
     const body = await request.json();
-    const validation = createPostSchema.safeParse(body);
+    // const validation = createPostSchema.safeParse(body);
 
-    if (!validation.success) {
-      return NextResponse.json(
-        { message: validation.error.errors },
-        { status: 500 }
-      );
-    }
+    // if (!validation.success) {
+    //   return NextResponse.json(
+    //     { message: validation.error.errors },
+    //     { status: 500 }
+    //   );
+    // }
+
+    console.log(body);
 
     const newPost = await prisma.post.create({
       data: body,
     });
 
-    return NextResponse.json({ newPost }, { status: 201 });
+    return NextResponse.json({ message: "cerate" }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to create data" },

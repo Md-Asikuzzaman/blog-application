@@ -8,23 +8,37 @@ import { LuClock10 } from "react-icons/lu";
 import { MdCategory } from "react-icons/md";
 
 interface Props {
-  post: PostType;
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId?: string | null;
+  categoriesId?: string[];
+  tagsId?: string[];
+  author: AuthorType;
 }
 
-const Post: NextPage<Props> = ({ post }) => {
-  const { author, image, category, id, title, createdAt } = post;
-
+const Post: NextPage<Props> = ({
+  id,
+  title,
+  image,
+  createdAt,
+  authorId,
+  author,
+}) => {
   return (
     <div className="bg-white p-4 rounded-md flex gap-3">
       <div className="relative h-48 w-48 rounded-lg overflow-hidden shrink-0">
-        <Image
+        {/* <Image
           src={image}
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 100vw"
           alt="img"
           priority
-        />
+        /> */}
       </div>
 
       <div>
@@ -43,9 +57,12 @@ const Post: NextPage<Props> = ({ post }) => {
         </Link>
 
         <div className="flex items-center gap-3 mt-3">
-          <Link className="inline-flex" href={`/author/${author.id}`}>
+          <Link
+            className="inline-flex"
+            href={`/author/${author ? author?.id : "None"}`}
+          >
             <span className="inline-flex items-center gap-1 text-gray-500 hover:text-green-600 transition-colors text-sm">
-              <FaRegUserCircle size={18} /> {author.name}
+              <FaRegUserCircle size={18} /> {author ? author?.name : "Unknown"}
             </span>
           </Link>
 
