@@ -3,11 +3,11 @@ interface PostType {
   title: string;
   description: string;
   image: string;
-  author: AuthorType;
-  category: CategoryType[];
-  tags: Array<string>;
   createdAt: Date;
   updatedAt: Date;
+  authorId: string | null;
+  categoriesId: string[];
+  tagsId: string[];
 }
 
 interface AuthorType {
