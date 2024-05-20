@@ -1,8 +1,14 @@
 import prisma from "@/app/database";
 import { NextRequest, NextResponse } from "next/server";
 
+interface ApiResponse {
+  catetegories?: CategoryType[];
+  newCategory?: CategoryType;
+  message?: string;
+}
+
 // [FETCH] all category
-export async function GET(request: NextRequest) {
+export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
     const catetegories = await prisma.category.findMany();
 
@@ -16,7 +22,9 @@ export async function GET(request: NextRequest) {
 }
 
 // [CREATE] a new category
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest
+): Promise<NextResponse<ApiResponse>> {
   try {
     const body = await request.json();
 
@@ -27,7 +35,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ newCategory }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Failed to create category" },
+      { message: "Failed to create category." },
       { status: 500 }
     );
   }
