@@ -12,7 +12,8 @@ interface ParamsType {
   };
 }
 
-export async function POST(
+// [UPDATE] tag by ID
+export async function PATCH(
   request: Request,
   context: ParamsType
 ): Promise<NextResponse<ApiResponse>> {
