@@ -6,6 +6,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import axios from "axios";
+import { Suspense } from "react";
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -23,7 +24,9 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-8">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Posts />
+        <Suspense fallback={<span>loading...</span>}>
+          <Posts />
+        </Suspense>
       </HydrationBoundary>
     </div>
   );

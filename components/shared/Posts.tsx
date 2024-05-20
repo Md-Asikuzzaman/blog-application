@@ -21,7 +21,7 @@ const Posts = () => {
 
   useEffect(() => {
     searchID && setTagId(searchID);
-  }, [searchID]);
+  }, [searchID, setTagId]);
 
   const { data: postsBytag, isLoading: loading } = useQuery<ApiPostType[]>({
     queryKey: ["mytags", searchID],

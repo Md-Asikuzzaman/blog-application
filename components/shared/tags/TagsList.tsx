@@ -20,7 +20,7 @@ const TagsList: NextPage<Props> = ({ tag }) => {
       className={clsx(
         "bg-green-600/10 text-green-600 hover:bg-green-600 hover:text-white py-1 px-3 rounded-full transition-colors",
 
-        tagId == id && "bg-green-600 text-white"
+        tagId === id && "bg-green-600/100 text-white"
       )}
       href={`/?tagID=${id}`}
     >
