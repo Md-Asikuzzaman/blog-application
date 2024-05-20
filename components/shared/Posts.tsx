@@ -6,34 +6,60 @@ import React, { useEffect } from "react";
 import Post from "./post/Post";
 import PostSkeleton from "./skeleton/PostSkeleton";
 import { usePageCountStore, useSearchStore } from "@/lib/store";
+import { useSearchParams } from "next/navigation";
 
 const Posts = () => {
+  const searchParams = useSearchParams();
+
+  const searchID = searchParams.get("tagID");
+
+  const { data: postsBytag, isLoading: loading } = useQuery<ApiPostType[]>({
+    queryKey: ["mytags", searchID],
+    queryFn: async () => {
+      const { data } = await axios.post(`/api/tags/${searchID}`, {
+        baseURL: process.env.NEXTAUTH_URL,
+      });
+      return data.selectedTag.posts;
+    },
+
+    enabled: searchID ? true : false,
+  });
+
   const search = useSearchStore((state) => state.search);
 
   const { currentPage, incCurrentPageCount, decCurrentPageCount } =
     usePageCountStore((state) => state);
 
   const { data: posts, isLoading } = useQuery<ApiPostType[]>({
-    queryKey: ["postss"],
+    queryKey: ["postss", searchID],
     queryFn: async () => {
       const { data } = await axios.get("/api/posts", {
         baseURL: process.env.NEXTAUTH_URL,
       });
       return data.posts;
     },
+
+    enabled: !searchID ? true : false,
   });
 
-  console.log(posts);
+  console.log(postsBytag);
 
   // FILTER POSTS BY SEARCH
-  const filteredPosts =
-    posts &&
-    posts.filter((post) => {
-      return (
-        post.title.toLowerCase().includes(search.toLowerCase().trim()) ||
-        post.title.toLowerCase().includes(search.toLowerCase().trim())
-      );
-    });
+  const filteredPosts = postsBytag
+    ? postsBytag &&
+      postsBytag.filter((post) => {
+        return (
+          post.title.toLowerCase().includes(search.toLowerCase().trim()) ||
+          post.title.toLowerCase().includes(search.toLowerCase().trim())
+        );
+      })
+    : posts &&
+      posts.filter((post) => {
+        return (
+          post.title.toLowerCase().includes(search.toLowerCase().trim()) ||
+          post.title.toLowerCase().includes(search.toLowerCase().trim())
+        );
+      });
 
   // PAGINATION LOGIC
   const postPerPage = 3;
@@ -49,7 +75,7 @@ const Posts = () => {
     decCurrentPageCount();
   };
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className="flex flex-col gap-8">
         {[1, 2, 3, 4].map((_, i) => (
@@ -73,6 +99,8 @@ const Posts = () => {
       {sortedPosts?.map((post) => (
         <Post key={post.id} post={post} />
       ))}
+
+      {loading && "Loading..."}
 
       <div>
         <button
