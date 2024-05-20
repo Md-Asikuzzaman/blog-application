@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 interface ApiResponse {
   updatedTag?: TagType;
+  selectedTag?: TagType | null;
   message?: string;
 }
 
@@ -27,6 +28,38 @@ export async function PATCH(
     });
 
     return NextResponse.json({ updatedTag }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Failed to update tag.",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// [FETCH] tags by ID
+export async function POST(
+  request: Request,
+  context: ParamsType
+): Promise<NextResponse<ApiResponse>> {
+  try {
+    const { id } = context.params;
+
+    const selectedTag = await prisma.tag.findUnique({
+      where: { id },
+      include: {
+        posts: {
+          include: {
+            author: true,
+            categories: true,
+            tags: true,
+          },
+        },
+      },
+    });
+
+    return NextResponse.json({ selectedTag }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {

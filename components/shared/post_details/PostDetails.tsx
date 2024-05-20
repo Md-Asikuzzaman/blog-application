@@ -12,13 +12,17 @@ interface Props {
 }
 
 const PostDetails: NextPage<Props> = ({ id }) => {
-  const { data: post, isLoading } = useQuery<ApiPostType>({
+  const {
+    data: post,
+    isFetching,
+    isLoading,
+  } = useQuery<ApiPostType>({
     queryKey: ["post-details", id],
     queryFn: async () => {
       const { data } = await axios.get(`/api/posts/${id}`, {
         baseURL: process.env.NEXTAUTH_URL,
       });
-      return data;
+      return data.post;
     },
     enabled: id ? true : false,
   });
@@ -26,11 +30,13 @@ const PostDetails: NextPage<Props> = ({ id }) => {
   return (
     <div className="bg-white p-5 rounded-md">
       <div className="flex flex-col gap-3 mb-5">
+        {isFetching && "Loading..."}
         <h2 className="text-2xl font-medium">{post?.title}</h2>
 
         <div className="flex items-center gap-3 mt-3">
           <span className="inline-flex items-center gap-1 text-gray-500 text-md">
-            <FaRegUserCircle size={18} /> {post?.author?.name}
+            <FaRegUserCircle size={18} />
+            {post && post?.author?.name}
           </span>
 
           <span className="inline-flex items-center gap-1 text-gray-500 text-md">
@@ -45,7 +51,7 @@ const PostDetails: NextPage<Props> = ({ id }) => {
             "lloading..."
           ) : (
             <Image
-              src={post?.image as string}
+              src={"/assets/images/pc.jpg"}
               fill
               sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 100vw"
               alt="img"

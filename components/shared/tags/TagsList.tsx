@@ -13,7 +13,7 @@ const TagsList: NextPage<Props> = ({ tag }) => {
   return (
     <Link
       className="bg-green-600/10 text-green-600 hover:bg-green-600 hover:text-white py-1 px-3 rounded-full transition-colors"
-      href={`/tag/${id}`}
+      href={`/?tagID=${id}`}
     >
       <span className="capitalize inline-flex items-center gap-1">
         <FaTags /> {title}

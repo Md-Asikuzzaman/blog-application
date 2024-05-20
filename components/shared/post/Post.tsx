@@ -30,14 +30,16 @@ const Post: NextPage<Props> = ({
       </div>
 
       <div>
-        {categories?.map(({ title, id }) => (
-          <Link key={id} href={`/category/=`}>
-            <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase mb-3 text-green-600">
-              <MdCategory size={18} />
-              {title}
-            </span>
-          </Link>
-        ))}
+        <div className="flex items-center gap-2 text-green-600">
+          <MdCategory size={18} />
+          {categories?.map(({ title, id }) => (
+            <Link key={id} href={`/?categoryID=${id}`}>
+              <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase">
+                {title},
+              </span>
+            </Link>
+          ))}
+        </div>
 
         <Link
           className="hover:text-green-600 transition-colors"
