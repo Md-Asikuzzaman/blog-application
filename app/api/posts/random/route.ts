@@ -1,28 +1,23 @@
 import prisma from "@/app/database";
-import { createPostSchema } from "@/schema/post";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET() {
+interface ApiResponse {
+  message?: string;
+  randomPosts?: ApiPostType[];
+}
+
+export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
     let posts = await prisma.post.findMany({
-      select: {
-        id: true,
-        title: true,
-        description: true,
+      include: {
         author: true,
-        image: true,
-        category: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-
-      orderBy: {
-        createdAt: "desc",
+        categories: true,
+        tags: true,
       },
     });
 
     // shuffle algoritm
-    const shuffleArray = (array: PostType[] | any) => {
+    const shuffleArray = (array: ApiPostType[] | any) => {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -30,36 +25,12 @@ export async function GET() {
       return array;
     };
 
-    const shufflePosts = shuffleArray(posts);
+    const randomPosts = shuffleArray(posts);
 
-    return NextResponse.json(shufflePosts, { status: 200 });
+    return NextResponse.json({ randomPosts }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Failed to fetch data." },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-
-    const validation = createPostSchema.safeParse(body);
-
-    if (!validation.success) {
-      return NextResponse.json(validation.error.errors, { status: 500 });
-    }
-
-    // CREATE NEW POST
-    const newPost = await prisma.post.create({
-      data: body,
-    });
-
-    return NextResponse.json({ newPost }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Failed to create data" },
+      { message: "Failed to fetch random posts." },
       { status: 500 }
     );
   }
