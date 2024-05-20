@@ -10,7 +10,11 @@ interface ApiResponse {
 // [FETCH] all tags
 export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
-    const tags = await prisma.tag.findMany();
+    const tags = await prisma.tag.findMany({
+      include: {
+        posts: true,
+      },
+    });
     return NextResponse.json({ tags }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

@@ -1,3 +1,5 @@
+"use client";
+
 import moment from "moment";
 import { NextPage } from "next";
 import Image from "next/image";
@@ -8,46 +10,34 @@ import { LuClock10 } from "react-icons/lu";
 import { MdCategory } from "react-icons/md";
 
 interface Props {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  createdAt: Date;
-  updatedAt: Date;
-  authorId?: string | null;
-  // categoriesId?: string[];
-  // tagsId?: string[];
-  author: AuthorType | null;
+  post: ApiPostType;
 }
 
 const Post: NextPage<Props> = ({
-  id,
-  title,
-  image,
-  createdAt,
-  authorId,
-  author,
+  post: { id, title, description, author, createdAt, categories },
 }) => {
   return (
     <div className="bg-white p-4 rounded-md flex gap-3">
       <div className="relative h-48 w-48 rounded-lg overflow-hidden shrink-0">
-        {/* <Image
-          src={image}
+        <Image
+          src={"/assets/images/pc.jpg"}
           fill
           style={{ objectFit: "cover" }}
           sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 100vw"
           alt="img"
           priority
-        /> */}
+        />
       </div>
 
       <div>
-        <Link href={`/category/=`}>
-          <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase mb-3 text-green-600">
-            <MdCategory size={18} />
-            {/* {category[0].title} */}
-          </span>
-        </Link>
+        {categories?.map(({ title, id }) => (
+          <Link key={id} href={`/category/=`}>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold uppercase mb-3 text-green-600">
+              <MdCategory size={18} />
+              {title}
+            </span>
+          </Link>
+        ))}
 
         <Link
           className="hover:text-green-600 transition-colors"

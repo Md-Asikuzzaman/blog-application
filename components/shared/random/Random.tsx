@@ -5,13 +5,15 @@ import axios from "axios";
 import RandomPostSkeleton from "@/components/ui/RandomPostSkeleton";
 
 const Random = () => {
-  const { data: posts, isLoading } = useQuery<PostType[]>({
+  const { data: posts, isLoading } = useQuery<ApiPostType[]>({
     queryKey: ["random"],
     queryFn: async () => {
-      const { data } = await axios.get("/api/posts");
-      return data;
+      const { data } = await axios.get("/api/posts/random");
+      return data.randomPosts;
     },
   });
+
+  console.log(posts);
 
   return (
     <div className="bg-white p-5 rounded-md">
@@ -28,9 +30,9 @@ const Random = () => {
           </div>
         ) : (
           <>
-            {/* {posts?.slice(0, 5)?.map((post: PostType) => (
+            {posts?.map((post) => (
               <RandomList key={post.id} post={post} />
-            ))} */}
+            ))}
           </>
         )}
       </div>

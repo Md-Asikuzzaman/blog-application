@@ -6,7 +6,7 @@ import Link from "next/link";
 import { LuClock10 } from "react-icons/lu";
 
 interface Props {
-  post: PostType;
+  post: ApiPostType;
 }
 
 const RandomList: NextPage<Props> = ({ post }) => {
@@ -16,7 +16,7 @@ const RandomList: NextPage<Props> = ({ post }) => {
     <div className="flex items-center gap-3">
       <Image
         className="rounded-md"
-        src={image}
+        src={"/assets/images/pc.jpg"}
         height={70}
         width={90}
         alt="img"
