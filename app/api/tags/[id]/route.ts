@@ -36,3 +36,29 @@ export async function PATCH(
     );
   }
 }
+
+// [DELETE] tag by ID
+export async function DELETE(
+  request: Request,
+  context: ParamsType
+): Promise<NextResponse<ApiResponse>> {
+  try {
+    const { id } = context.params;
+
+    await prisma.tag.delete({
+      where: { id },
+    });
+
+    return NextResponse.json(
+      { message: "Tag deleted successfully." },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Failed to update tag.",
+      },
+      { status: 500 }
+    );
+  }
+}
