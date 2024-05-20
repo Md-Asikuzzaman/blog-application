@@ -12,13 +12,13 @@ interface Props {
 }
 
 const PostDetails: NextPage<Props> = ({ id }) => {
-  const { data: post, isLoading } = useQuery<PostType>({
+  const { data: post, isLoading } = useQuery<ApiPostType>({
     queryKey: ["post-details", id],
     queryFn: async () => {
       const { data } = await axios.get(`/api/posts/${id}`, {
         baseURL: process.env.NEXTAUTH_URL,
       });
-      return data as PostType;
+      return data;
     },
     enabled: id ? true : false,
   });
@@ -30,7 +30,7 @@ const PostDetails: NextPage<Props> = ({ id }) => {
 
         <div className="flex items-center gap-3 mt-3">
           <span className="inline-flex items-center gap-1 text-gray-500 text-md">
-            <FaRegUserCircle size={18} /> {post?.author}
+            <FaRegUserCircle size={18} /> {post?.author?.name}
           </span>
 
           <span className="inline-flex items-center gap-1 text-gray-500 text-md">

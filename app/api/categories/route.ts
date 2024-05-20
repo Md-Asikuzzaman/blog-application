@@ -10,7 +10,11 @@ interface ApiResponse {
 // [FETCH] all category
 export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
-    const catetegories = await prisma.category.findMany();
+    const catetegories = await prisma.category.findMany({
+      include: {
+        posts: true,
+      },
+    });
 
     return NextResponse.json({ catetegories }, { status: 200 });
   } catch (error) {

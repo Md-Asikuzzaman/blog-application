@@ -11,7 +11,7 @@ const Tags = () => {
   const { data, isLoading } = useQuery<QueryResponse>({
     queryKey: ["tags"],
     queryFn: async () => {
-      const { data } = await axios.get("/api/posts/tags");
+      const { data } = await axios.get("/api/tags");
       return data;
     },
   });
@@ -23,7 +23,7 @@ const Tags = () => {
       <div className="flex flex-wrap gap-2">
         {isLoading
           ? "Loading..."
-          : data?.tags?.map((tag) => <TagsList tag={tag} />)}
+          : data?.tags?.map((tag) => <TagsList key={tag.id} tag={tag} />)}
       </div>
     </div>
   );
