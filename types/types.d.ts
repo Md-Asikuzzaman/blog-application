@@ -3,11 +3,11 @@ interface ApiPostType {
   title: string;
   description: string;
   image: string;
-  authorId?: string | null;
-  categoriesId?: string[];
-  tagsId?: string[];
   createdAt: Date;
   updatedAt: Date;
+  author: AuthorType | null;
+  categories: CategoryType[];
+  tags: TagType[];
 }
 
 interface ClientPostType {
@@ -15,11 +15,11 @@ interface ClientPostType {
   title: string;
   description: string;
   image: string;
+  createdAt: Date;
+  updatedAt: Date;
   author: AuthorType | null;
   // tags: TagType[];
   categories: CategoryType[];
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 interface AuthorType {
@@ -33,7 +33,7 @@ interface AuthorType {
 interface TagType {
   id: string;
   title: string;
-  postId: string[] | null;
+  postIDs: string[] | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -41,7 +41,7 @@ interface TagType {
 interface CategoryType {
   id: string;
   title: string;
-  postId: string[] | null;
+  postIDs: string[] | null;
   createdAt: Date;
   updatedAt: Date;
 }
