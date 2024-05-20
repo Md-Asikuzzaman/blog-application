@@ -5,13 +5,23 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import Post from "./post/Post";
 import PostSkeleton from "./skeleton/PostSkeleton";
-import { usePageCountStore, useSearchStore } from "@/lib/store";
+import {
+  usePageCountStore,
+  useSearchStore,
+  useTagActiveStore,
+} from "@/lib/store";
 import { useSearchParams } from "next/navigation";
 
 const Posts = () => {
   const searchParams = useSearchParams();
 
   const searchID = searchParams.get("tagID");
+
+  const { setTagId } = useTagActiveStore();
+
+  useEffect(() => {
+    searchID && setTagId(searchID);
+  }, [searchID]);
 
   const { data: postsBytag, isLoading: loading } = useQuery<ApiPostType[]>({
     queryKey: ["mytags", searchID],
