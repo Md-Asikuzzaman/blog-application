@@ -27,7 +27,7 @@ const Page: NextPage<Props> = async ({ params }) => {
         baseURL: process.env.NEXTAUTH_URL,
       });
 
-      return data as ApiPostType;
+      return data.post as ApiPostType;
     },
   });
 

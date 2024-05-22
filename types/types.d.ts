@@ -10,18 +10,6 @@ interface ApiPostType {
   tags: TagType[];
 }
 
-interface ClientPostType {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  createdAt: Date;
-  updatedAt: Date;
-  author: AuthorType | null;
-  // tags: TagType[];
-  categories: CategoryType[];
-}
-
 interface AuthorType {
   id: string;
   name: string;

@@ -2,7 +2,7 @@ import prisma from "@/app/database";
 import { NextRequest, NextResponse } from "next/server";
 
 interface ApiResponse {
-  catetegories?: CategoryType[];
+  categories?: CategoryType[];
   newCategory?: CategoryType;
   message?: string;
 }
@@ -10,13 +10,14 @@ interface ApiResponse {
 // [FETCH] all category
 export async function GET(): Promise<NextResponse<ApiResponse>> {
   try {
-    const catetegories = await prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       include: {
         posts: true,
+        _count: true,
       },
     });
 
-    return NextResponse.json({ catetegories }, { status: 200 });
+    return NextResponse.json({ categories }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Failed to fetch catetegories." },

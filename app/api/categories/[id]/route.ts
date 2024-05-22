@@ -1,5 +1,6 @@
 import prisma from "@/app/database";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 interface ApiResponse {
   updatedCategory?: CategoryType;
@@ -12,6 +13,11 @@ interface ParamsType {
   };
 }
 
+// Define Zod schema for category data
+const categorySchema = z.object({
+  title: z.string(),
+});
+
 // [UPDATE] category by ID
 export async function PATCH(
   request: Request,
@@ -20,6 +26,16 @@ export async function PATCH(
   try {
     const { id } = context.params;
     const body = await request.json();
+
+    // Validate incoming data
+    try {
+      categorySchema.parse(body);
+    } catch (error) {
+      return NextResponse.json(
+        { message: "Invalid category data provided." },
+        { status: 400 }
+      );
+    }
 
     const updatedCategory = await prisma.category.update({
       where: { id },
