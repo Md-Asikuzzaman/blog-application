@@ -61,6 +61,14 @@ export async function DELETE(
   try {
     const { id } = context.params;
 
+    const category = await prisma.category.findUnique({ where: { id } });
+    if (!category) {
+      return NextResponse.json(
+        { message: "Category not found." },
+        { status: 404 }
+      );
+    }
+
     await prisma.category.delete({
       where: { id },
     });
